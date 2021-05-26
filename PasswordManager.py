@@ -147,8 +147,6 @@ def cadastrasenha(nome):
     print('Gerenciador de senhas'.center(30))
     print(f'Cadastrar nova senha para {nome}'.center(30))
     print('=' * 30)
-    identificador = []
-    password = []
     if nome in gerenciador:
         base2 = []
         for i in range(len(gerenciador[nome][:])):
@@ -166,7 +164,7 @@ def cadastrasenha(nome):
         passs = str(input('Digite a senha para guardar: '))
         base.append(f'Nome: {ids} - Senha: {passs}')
         gerenciador[nome] = base
-        base = []
+        base.clear()
 
 def apagasenha(nome):
     print('=' * 30)
