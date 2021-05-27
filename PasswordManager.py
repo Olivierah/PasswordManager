@@ -164,7 +164,7 @@ def cadastrasenha(nome):
         passs = str(input('Digite a senha para guardar: '))
         base.append(f'Nome: {ids} - Senha: {passs}')
         gerenciador[nome] = base
-        base.clear()
+        
 
 def apagasenha(nome):
     print('=' * 30)
