@@ -110,8 +110,10 @@ def menulog(nome):
             elif opc == 5:
                 apagacadastro(nome)
                 if nome not in usuarios:
+                    autosave()
                     break
             elif opc == 6:
+                savedata(gerenciador, usuarios, senhaLogin, validation)
                 break
 
 def apagatudo(nome):
@@ -246,11 +248,94 @@ def exibesenha(nome):
         print('')
         print('Você ainda não possui senhas cadastradas :(')
 
+def savedata(gerenciador, usuarios, senhaLogin, validation):
+    try:
+       opc = str(input('Deseja salvar as alterações feitas? [S/N]: ').upper())
+    except:
+        print('Opção inválida!')
+    else:
+        if opc == 'S':
+            with open('Data_Base_K.txt', 'w') as DataBaseK:
+                for k, v in gerenciador.items():
+                    DataBaseK.write(f'{k}\n')
+                DataBaseK.close()
+            with open('Data_Base_V.txt', 'w') as DataBaseV:
+                for k, v in gerenciador.items():
+                    DataBaseV.write(f'{v}\n')
+                DataBaseV.close()
+        else:
+            print('As alterações foram descartadas.')
+    if len(usuarios) != len(validation):
+        with open('Log_User.txt', 'w') as DataUser:
+            for u in range(len(usuarios)):
+                DataUser.write(f'{usuarios[u]}\n')
+            DataUser.close()
+        with open('Log_Password.txt', 'w') as DataPassword:
+            for s in range(len(senhaLogin)):
+                DataPassword.write(f'{senhaLogin[s]}\n')
+            DataPassword.close()
+
+def readdata(gerenciador, usuarios, senhaLogin):
+    try:
+        listaKey = []
+        listaValue = []
+        with open('Data_Base_K.txt', 'r') as DataBaseK:
+            for k in DataBaseK:
+                listaKey.append(k.rstrip())
+        with open('Data_Base_V.txt', 'r') as DataBaseV:
+            for v in DataBaseV:
+                temp = str(v.rstrip())
+                temp = temp.replace(", ", ",")
+                temp = temp.replace("[", "")
+                temp = temp.replace("]", "")
+                temp = temp.replace("'", "")
+                temp = temp.split(',')
+                listaValue.append(temp)
+            for u in range(len(listaValue)):
+                gerenciador[listaKey[u]] = listaValue[u]
+        with open('Log_User.txt','r') as DataUser:
+            for u in DataUser:
+                usuarios.append(u.rstrip())
+        with open('Log_Password.txt','r') as DataPassword:
+            for p in DataPassword:
+                senhaLogin.append(p.rstrip())
+    except:
+        with open('Data_Base_K.txt', 'w') as DataBaseK:
+            DataBaseK.write('')
+        with open('Data_Base_V.txt', 'w') as DataBaseV:
+            DataBaseV.write('')
+        with open('Log_User.txt', 'w') as DataUser:
+            DataUser.write('')
+        with open('Log_Password.txt', 'w') as DataPassword:
+            DataPassword.write('')
+
+def autosave():
+    with open('Data_Base_K.txt', 'w') as DataBaseK:
+        for k, v in gerenciador.items():
+            DataBaseK.write(f'{k}\n')
+        DataBaseK.close()
+    with open('Data_Base_V.txt', 'w') as DataBaseV:
+        for k, v in gerenciador.items():
+            DataBaseV.write(f'{v}\n')
+        DataBaseV.close()
+    with open('Log_User.txt', 'w') as DataUser:
+        for u in range(len(usuarios)):
+            DataUser.write(f'{usuarios[u]}\n')
+        DataUser.close()
+    with open('Log_Password.txt', 'w') as DataPassword:
+        for s in range(len(senhaLogin)):
+            DataPassword.write(f'{senhaLogin[s]}\n')
+        DataPassword.close()
+
 
 usuarios = []
 senhaLogin = []
+validation = []
 gerenciador = {}
 
+
+readdata(gerenciador, usuarios, senhaLogin)
+validation = usuarios.copy()
 while True:
     menu()
     try:
