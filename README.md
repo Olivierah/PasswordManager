@@ -13,3 +13,4 @@ This project is part of my personal portfolio, so any feedback or suggestion tha
  - Delete a password
  - Delete all passwords
  - Enter new password
+ - Save data to .txt files.
