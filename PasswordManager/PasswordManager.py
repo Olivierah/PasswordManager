@@ -60,7 +60,6 @@ def acessaconta():
         print('Parece que você ainda não tem cadastro!')
         print('Vamos retornar ao menu principal para que você possa criar um! :B')
         print('')
-        menu()
     else:
         if nome in usuarios and senha == senhaLogin[p]:
             print('')
