@@ -56,25 +56,23 @@ def acessaconta():
         senha = str(input('Senha: '))
         p = usuarios.index(nome)
     except:
-        if nome in usuarios:
-            print('')
-            print('Vish! Acho que você pode ter digitado errado alguma coisa.')
-            print('Vamos tentar novamente ;)')
-            acessaconta()
-        else:
-            print('')
-            print('Parece que você ainda não tem cadastro!')
-            print('Vamos retornar ao menu principal para que você possa criar um! :B')
-            print('')
+        print('')
+        print('Parece que você ainda não tem cadastro!')
+        print('Vamos retornar ao menu principal para que você possa criar um! :B')
+        print('')
+        menu()
     else:
         if nome in usuarios and senha == senhaLogin[p]:
             print('')
             print('login realizado com sucesso!')
             print(f'Olá {nome}! Muito bom ver você por aqui! =D')
             menulog(nome)
-        else:
+        elif nome in usuarios and senha != senhaLogin[p]:
             print('')
-            print('Usuário ou senha incorretos :/.')
+            print('VISH!!! Acho que você pode ter digitado alguma coisa errada.')
+            print('Vamos tentar novamente! ;)')
+            print('')
+            acessaconta()
 
 def menulog(nome):
     while True:
