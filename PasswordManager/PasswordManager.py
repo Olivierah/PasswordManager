@@ -63,7 +63,7 @@ def acessaconta():
     else:
         if nome in usuarios and senha == senhaLogin[p]:
             print('')
-            print('login realizado com sucesso!')
+            print('LOGIN REALIZADO COM SUCESSO!')
             print(f'Olá {nome}! Muito bom ver você por aqui! =D')
             menulog(nome)
         elif nome in usuarios and senha != senhaLogin[p]:
