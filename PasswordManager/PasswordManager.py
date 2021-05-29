@@ -251,6 +251,9 @@ def exibesenha(nome):
 def savedata(gerenciador, usuarios, senhaLogin, validation):
     try:
        opc = str(input('Deseja salvar as alterações feitas? [S/N]: ').upper())
+       while opc != 'S' and opc != 'N':
+           print('Opção inválida!')
+           opc = str(input('Deseja salvar as alterações feitas? [S/N]: ').upper())
     except:
         print('Opção inválida!')
     else:
@@ -263,8 +266,13 @@ def savedata(gerenciador, usuarios, senhaLogin, validation):
                 for k, v in gerenciador.items():
                     DataBaseV.write(f'{v}\n')
                 DataBaseV.close()
+            print('')
+            print('ALTERAÇÕES SALVAS COM SUCESSO! =D')
+            print('')
         else:
-            print('As alterações foram descartadas.')
+            print('')
+            print('AS ALTERAÇÕES FORAM DESCARTADAS! ;).')
+            print('')
     if len(usuarios) != len(validation):
         with open('Log_User.txt', 'w') as DataUser:
             for u in range(len(usuarios)):
