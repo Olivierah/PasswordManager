@@ -1,3 +1,10 @@
+usuarios = []
+senhaLogin = []
+validation = []
+gerenciador = {}
+cont = 0
+
+
 def menu():
     print('='*30)
     print('Menu'.center(30))
@@ -41,13 +48,14 @@ def criacadastro():
             print(f'Agora seu cadastro foi concluído! Seja muito bem vinda(o) {nome}')
             usuarios.append(nome)
             senhaLogin.append(senha)
+            autosave()
             break
         else:
             print('')
             print('Poxa, as senhas não conferem :/')
             print('Vamos tentar novamente!')
 
-def acessaconta():
+def acessaconta(cont):
     print('=' * 30)
     print('Login'.center(30))
     print('=' * 30)
@@ -67,11 +75,23 @@ def acessaconta():
             print(f'Olá {nome}! Muito bom ver você por aqui! =D')
             menulog(nome)
         elif nome in usuarios and senha != senhaLogin[p]:
-            print('')
-            print('VISH!!! Acho que você pode ter digitado alguma coisa errada.')
-            print('Vamos tentar novamente! ;)')
-            print('')
-            acessaconta()
+            if cont == 0:
+                print('')
+                print('VISH!!! Acho que você pode ter digitado alguma coisa errada.')
+                print('Vamos tentar novamente! ;)')
+                print('')
+                cont += 1
+                acessaconta(cont)
+            elif cont == 1:
+                print('')
+                print('Tenta mais uma vez! Eu sei que você consegue!')
+                print('')
+                cont += 1
+                acessaconta(cont)
+            elif cont == 2:
+                print('')
+                print('Ou talvez não, né? Melhor voltar para o menu :B')
+                print('')
 
 def menulog(nome):
     while True:
@@ -126,7 +146,9 @@ def apagatudo(nome):
     else:
         exibesenha(nome)
         print('')
-        print('Vamos fazer aquela faxina!')
+        print('Sem pontas soltas, entendi...')
+        print('Vamos fazer aquela faxina! ;)')
+        print('')
         try:
             print('Vamos apagar tudo mesmo? [S/N]')
             opc = str(input('=> ')).upper()
@@ -137,8 +159,12 @@ def apagatudo(nome):
         except:
             print('Vish! Vamos tentar de novo')
         else:
-            gerenciador.pop(nome)
-            print('Tudo apagado!')
+            if opc == 'S':
+                gerenciador.pop(nome)
+                print('Tudo apagado!')
+            else:
+                print('Entendi, vamos esperar a poeira baixar... ')
+                print('Nada foi apagado ;)')
 
 def cadastrasenha(nome):
     print('')
@@ -333,12 +359,6 @@ def autosave():
         DataPassword.close()
 
 
-usuarios = []
-senhaLogin = []
-validation = []
-gerenciador = {}
-
-
 readdata(gerenciador, usuarios, senhaLogin)
 validation = usuarios.copy()
 while True:
@@ -353,7 +373,7 @@ while True:
         print('opção inválida! Tente novamente.')
     else:
         if opc == 1:
-            acessaconta()
+            acessaconta(cont)
         elif opc == 2:
             criacadastro()
         elif opc == 3:
