@@ -89,7 +89,7 @@ def menulog(nome):
             opc = int(input('=> '))
             while opc < 1 or opc > 6:
                 print('')
-                print('Lá vai uma dica... Tem que ser um número de 1 até 4 :P')
+                print('Lá vai uma dica... Tem que ser um número de 1 até 6 :P')
                 menulog(nome)
                 opc = int(input('=> '))
         except:
