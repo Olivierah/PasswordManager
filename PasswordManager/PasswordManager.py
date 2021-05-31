@@ -1,3 +1,8 @@
+import pyAesCrypt
+from os import remove
+
+bufferSize = 128 * 1024
+secury = 'Hk$N9w3fqd@YeBr1xspXI588Hi$8zMJOBi1Q!%^N8u61ib7&7R'
 usuarios = []
 senhaLogin = []
 validation = []
@@ -285,10 +290,14 @@ def savedata(gerenciador, usuarios, senhaLogin, validation):
                 for k, v in gerenciador.items():
                     DataBaseK.write(f'{k}\n')
                 DataBaseK.close()
+                pyAesCrypt.encryptFile("Data_Base_K.txt", "Data_Base_K.txt.aes", secury, bufferSize)
+                remove('Data_Base_K.txt')
             with open('Data_Base_V.txt', 'w') as DataBaseV:
                 for k, v in gerenciador.items():
                     DataBaseV.write(f'{v}\n')
                 DataBaseV.close()
+                pyAesCrypt.encryptFile("Data_Base_V.txt", "Data_Base_V.txt.aes", secury, bufferSize)
+                remove('Data_Base_V.txt')
             print('')
             print('ALTERAÇÕES SALVAS COM SUCESSO! =D')
             print('')
@@ -301,18 +310,25 @@ def savedata(gerenciador, usuarios, senhaLogin, validation):
             for u in range(len(usuarios)):
                 DataUser.write(f'{usuarios[u]}\n')
             DataUser.close()
+            pyAesCrypt.encryptFile("Log_User.txt", "Log_User.txt.aes", secury, bufferSize)
+            remove('Log_User.txt')
         with open('Log_Password.txt', 'w') as DataPassword:
             for s in range(len(senhaLogin)):
                 DataPassword.write(f'{senhaLogin[s]}\n')
             DataPassword.close()
+            pyAesCrypt.encryptFile("Log_Password.txt", "Log_Password.txt.aes", secury, bufferSize)
+            remove('Log_Password.txt')
 
 def readdata(gerenciador, usuarios, senhaLogin):
     try:
         listaKey = []
         listaValue = []
+        pyAesCrypt.decryptFile("Data_Base_K.txt.aes", "Data_Base_K.txt", secury, bufferSize)
         with open('Data_Base_K.txt', 'r') as DataBaseK:
             for k in DataBaseK:
                 listaKey.append(k.rstrip())
+        remove('Data_Base_K.txt')
+        pyAesCrypt.decryptFile("Data_Base_V.txt.aes", "Data_Base_V.txt", secury, bufferSize)
         with open('Data_Base_V.txt', 'r') as DataBaseV:
             for v in DataBaseV:
                 temp = str(v.rstrip())
@@ -324,12 +340,17 @@ def readdata(gerenciador, usuarios, senhaLogin):
                 listaValue.append(temp)
             for u in range(len(listaValue)):
                 gerenciador[listaKey[u]] = listaValue[u]
+        remove('Data_Base_V.txt')
+        pyAesCrypt.decryptFile("Log_User.txt.aes", "Log_User.txt", secury, bufferSize)
         with open('Log_User.txt','r') as DataUser:
             for u in DataUser:
                 usuarios.append(u.rstrip())
+        remove('Log_User.txt')
+        pyAesCrypt.decryptFile("Log_Password.txt.aes", "Log_Password.txt", secury, bufferSize)
         with open('Log_Password.txt','r') as DataPassword:
             for p in DataPassword:
                 senhaLogin.append(p.rstrip())
+        remove('Log_Password.txt')
     except:
         with open('Data_Base_K.txt', 'w') as DataBaseK:
             DataBaseK.write('')
@@ -345,18 +366,26 @@ def autosave():
         for k, v in gerenciador.items():
             DataBaseK.write(f'{k}\n')
         DataBaseK.close()
+        pyAesCrypt.encryptFile("Data_Base_K.txt", "Data_Base_K.txt.aes", secury, bufferSize)
+        remove('Data_Base_K.txt')
     with open('Data_Base_V.txt', 'w') as DataBaseV:
         for k, v in gerenciador.items():
             DataBaseV.write(f'{v}\n')
         DataBaseV.close()
+        pyAesCrypt.encryptFile("Data_Base_V.txt", "Data_Base_V.txt.aes", secury, bufferSize)
+        remove('Data_Base_V.txt')
     with open('Log_User.txt', 'w') as DataUser:
         for u in range(len(usuarios)):
             DataUser.write(f'{usuarios[u]}\n')
         DataUser.close()
+        pyAesCrypt.encryptFile("Log_User.txt", "Log_User.txt.aes", secury, bufferSize)
+        remove('Log_User.txt')
     with open('Log_Password.txt', 'w') as DataPassword:
         for s in range(len(senhaLogin)):
             DataPassword.write(f'{senhaLogin[s]}\n')
         DataPassword.close()
+        pyAesCrypt.encryptFile("Log_Password.txt", "Log_Password.txt.aes", secury, bufferSize)
+        remove('Log_Password.txt')
 
 
 readdata(gerenciador, usuarios, senhaLogin)
