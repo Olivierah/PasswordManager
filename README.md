@@ -14,3 +14,7 @@ This project is part of my personal portfolio, so any feedback or suggestion tha
  - Delete all passwords
  - Enter new password
  - Save data to .txt files.
+ - Encrypted database
+ 
+## Used packages:
+- [pyAesCrypt](https://pypi.org/project/pyAesCrypt/) - For encryption
