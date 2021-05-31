@@ -166,6 +166,8 @@ def apagatudo(nome):
         else:
             if opc == 'S':
                 gerenciador.pop(nome)
+                print('')
+                print('Shhhhh.... Já vai acabar...')
                 print('Tudo apagado!')
             else:
                 print('Entendi, vamos esperar a poeira baixar... ')
