@@ -1,5 +1,6 @@
 import pyAesCrypt
 from os import remove
+import time
 from playsound import playsound
 
 bufferSize = 128 * 1024
@@ -138,11 +139,15 @@ def menulog(nome):
             elif opc == 3:
                 apagatudo(nome)
             elif opc == 4:
+                playsound('sound\HardwareInsert.mp3')
                 exibesenha(nome)
+                time.sleep(3)
+                playsound('sound\HardwareRemove.mp3')
             elif opc == 5:
                 apagacadastro(nome)
                 if nome not in usuarios:
                     autosave()
+                    playsound('sound\Logoff.mp3')
                     break
             elif opc == 6:
                 autosave()
@@ -159,9 +164,10 @@ def apagatudo(nome):
     print(f'Gerenciador de senhas da {nome}'.center(30))
     print('Apagar todos os registros'.center(30))
     print('=' * 30)
-    if nome not in gerenciador:
+    if nome not in gerenciador or len(gerenciador[nome]) == 0:
         print('')
         print('Você ainda não possui senhas cadastradas :(')
+        playsound('sound\HardwareFail.mp3')
         menulog(nome)
     else:
         exibesenha(nome)
@@ -220,12 +226,11 @@ def apagasenha(nome):
     print('Apagar registro único'.center(30))
     print('=' * 30)
     if nome not in gerenciador:
-        playsound('sound\HardwareFail.mp3')
         print('')
         print('Você ainda não possui senhas cadastradas :(')
+        playsound('sound\HardwareFail.mp3')
         menulog(nome)
     else:
-        playsound('sound\HardwareInsert.mp3')
         exibesenha(nome)
         print('')
         print('Me mostra o ID da senha que você quer apagar que eu faço o resto ;)')
@@ -264,8 +269,9 @@ def apagacadastro(nome):
             print('Acho que você pode ter digitado errado, vamos tentar novamente.')
             senha = str(input('Senha: '))
         if nome in usuarios and senha == senhaLogin[p]:
-            opc = str(input('Deseja realmente apagar o seu cadastro? [S/N]: ')).upper()
+            print('Deseja realmente apagar o seu cadastro? [S/N]')
             playsound('sound\exclamation.mp3')
+            opc = str(input('=> ')).upper()
             while opc != 'S' and opc != 'N':
                 print('Opção inválida. Pode ser um sinal para você não apagar sua conta! Pense bem :B')
                 print('Vamos apagar tudo mesmo? [S/N]')
@@ -287,6 +293,7 @@ def apagacadastro(nome):
             playsound('sound\Recycle.mp3')
         else:
             print('Uhuuul! Eu sabia que ainda faríamos muitas senhas mirabolantes juntos! :D')
+            playsound('sound\Tada.mp3')
 
 def exibesenha(nome):
     print('=' * 30)
@@ -294,11 +301,9 @@ def exibesenha(nome):
     print('=' * 30)
     lista = []
     if nome in gerenciador:
-        playsound('sound\HardwareInsert.mp3')
         lista.append(gerenciador[nome])
         for i in range(len(lista[0])):
             print(f'ID:[{i + 1}] | {lista[0][i]}')
-        playsound('sound\HardwareRemove.mp3')
     else:
         print('')
         print('Você ainda não possui senhas cadastradas :(')
@@ -432,6 +437,6 @@ while True:
             print('=' * 30)
             print('All right reserved © 2021 - V1.25')
             print('')
-            print('Delisgando...')
+            print('Desligando...')
             playsound('sound\shutdown.mp3')
             break
