@@ -1,5 +1,6 @@
 import pyAesCrypt
 from os import remove
+from playsound import playsound
 
 bufferSize = 128 * 1024
 secury = 'Hk$N9w3fqd@YeBr1xspXI588Hi$8zMJOBi1Q!%^N8u61ib7&7R'
@@ -12,7 +13,7 @@ cont = 0
 
 def menu():
     print('='*30)
-    print('Menu'.center(30))
+    print('Gerenciador XP'.center(30))
     print('=' * 30)
     print('[1] - Acessar conta')
     print('[2] - Criar cadastro')
@@ -72,9 +73,14 @@ def acessaconta(cont):
         print('')
         print('Parece que você ainda não tem cadastro!')
         print('Vamos retornar ao menu principal para que você possa criar um! :B')
+        playsound('parada.wav')
         print('')
     else:
         if nome in usuarios and senha == senhaLogin[p]:
+            print('')
+            print('Ligando seu usuário...')
+            print('conectando na tomada...')
+            playsound('startup.mp3')
             print('')
             print('LOGIN REALIZADO COM SUCESSO!')
             print(f'Olá {nome}! Muito bom ver você por aqui! =D')
@@ -85,17 +91,20 @@ def acessaconta(cont):
                 print('VISH!!! Acho que você pode ter digitado alguma coisa errada.')
                 print('Vamos tentar novamente! ;)')
                 print('')
+                playsound('parada.wav')
                 cont += 1
                 acessaconta(cont)
             elif cont == 1:
                 print('')
                 print('Tenta mais uma vez! Eu sei que você consegue!')
                 print('')
+                playsound('parada.wav')
                 cont += 1
                 acessaconta(cont)
             elif cont == 2:
                 print('')
                 print('Ou talvez não, né? Melhor voltar para o menu :B')
+                playsound('parada.wav')
                 print('')
 
 def menulog(nome):
@@ -136,6 +145,11 @@ def menulog(nome):
                     break
             elif opc == 6:
                 autosave()
+                print('')
+                print('Desligando seu usuário...')
+                print('puxando a tomada...')
+                playsound('shutdown.mp3')
+                print('')
                 break
 
 def apagatudo(nome):
