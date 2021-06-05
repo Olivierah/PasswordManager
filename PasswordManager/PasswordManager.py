@@ -13,7 +13,7 @@ cont = 0
 
 def menu():
     print('='*30)
-    print('Gerenciador XP'.center(30))
+    print('Menu'.center(30))
     print('=' * 30)
     print('[1] - Acessar conta')
     print('[2] - Criar cadastro')
@@ -52,6 +52,7 @@ def criacadastro():
             print('')
             print('Show! As senhas conferem! =D')
             print(f'Agora seu cadastro foi concluído! Seja muito bem vinda(o) {nome}')
+            playsound('sound\Tada.mp3')
             usuarios.append(nome)
             senhaLogin.append(senha)
             autosave()
@@ -73,14 +74,14 @@ def acessaconta(cont):
         print('')
         print('Parece que você ainda não tem cadastro!')
         print('Vamos retornar ao menu principal para que você possa criar um! :B')
-        playsound('parada.wav')
+        playsound('sound\parada.mp3')
         print('')
     else:
         if nome in usuarios and senha == senhaLogin[p]:
             print('')
             print('Ligando seu usuário...')
             print('conectando na tomada...')
-            playsound('startup.mp3')
+            playsound('sound\Logon.mp3')
             print('')
             print('LOGIN REALIZADO COM SUCESSO!')
             print(f'Olá {nome}! Muito bom ver você por aqui! =D')
@@ -91,20 +92,20 @@ def acessaconta(cont):
                 print('VISH!!! Acho que você pode ter digitado alguma coisa errada.')
                 print('Vamos tentar novamente! ;)')
                 print('')
-                playsound('parada.wav')
+                playsound('sound\parada.mp3')
                 cont += 1
                 acessaconta(cont)
             elif cont == 1:
                 print('')
                 print('Tenta mais uma vez! Eu sei que você consegue!')
                 print('')
-                playsound('parada.wav')
+                playsound('sound\BCritical.mp3')
                 cont += 1
                 acessaconta(cont)
             elif cont == 2:
                 print('')
                 print('Ou talvez não, né? Melhor voltar para o menu :B')
-                playsound('parada.wav')
+                playsound('sound\Chord.mp3')
                 print('')
 
 def menulog(nome):
@@ -116,7 +117,7 @@ def menulog(nome):
         print('[1] - Cadastrar nova senha')
         print('[2] - Apagar uma senha')
         print('[3] - Apagar todas as senhas')
-        print('[4] - Ver lista de senhas')
+        print('[4] - Ver lista de senhas no Pen Drive virtual')
         print('[5] - Apagar cadastro')
         print('[6] - Sair da conta')
         try:
@@ -148,7 +149,7 @@ def menulog(nome):
                 print('')
                 print('Desligando seu usuário...')
                 print('puxando a tomada...')
-                playsound('shutdown.mp3')
+                playsound('sound\Logoff.mp3')
                 print('')
                 break
 
@@ -170,10 +171,12 @@ def apagatudo(nome):
         print('')
         try:
             print('Vamos apagar tudo mesmo? [S/N]')
+            playsound('sound\exclamation.mp3')
             opc = str(input('=> ')).upper()
             while opc != 'S' and opc != 'N':
                 print('Tem que ser "S" ou "N" :V')
                 print('Vamos apagar tudo mesmo? [S/N]')
+                playsound('sound\exclamation.mp3')
                 opc = str(input('=> ')).upper()
         except:
             print('Vish! Vamos tentar de novo')
@@ -217,10 +220,12 @@ def apagasenha(nome):
     print('Apagar registro único'.center(30))
     print('=' * 30)
     if nome not in gerenciador:
+        playsound('sound\HardwareFail.mp3')
         print('')
         print('Você ainda não possui senhas cadastradas :(')
         menulog(nome)
     else:
+        playsound('sound\HardwareInsert.mp3')
         exibesenha(nome)
         print('')
         print('Me mostra o ID da senha que você quer apagar que eu faço o resto ;)')
@@ -241,6 +246,7 @@ def apagasenha(nome):
             del lista[opc]
             gerenciador[nome] = lista
             print('')
+            playsound('sound\Recycle.mp3')
             print('Deleção realizada com sucesso!')
             print('')
             exibesenha(nome)
@@ -259,9 +265,11 @@ def apagacadastro(nome):
             senha = str(input('Senha: '))
         if nome in usuarios and senha == senhaLogin[p]:
             opc = str(input('Deseja realmente apagar o seu cadastro? [S/N]: ')).upper()
+            playsound('sound\exclamation.mp3')
             while opc != 'S' and opc != 'N':
                 print('Opção inválida. Pode ser um sinal para você não apagar sua conta! Pense bem :B')
                 print('Vamos apagar tudo mesmo? [S/N]')
+                playsound('sound\exclamation.mp3')
                 opc = str(input('=> ')).upper()
     except:
         print('Acho que você pode ter digitado algo errado')
@@ -276,6 +284,7 @@ def apagacadastro(nome):
             del usuarios[p]
             del senhaLogin[p]
             print('Cadastro excluído! :(')
+            playsound('sound\Recycle.mp3')
         else:
             print('Uhuuul! Eu sabia que ainda faríamos muitas senhas mirabolantes juntos! :D')
 
@@ -285,12 +294,15 @@ def exibesenha(nome):
     print('=' * 30)
     lista = []
     if nome in gerenciador:
+        playsound('sound\HardwareInsert.mp3')
         lista.append(gerenciador[nome])
         for i in range(len(lista[0])):
             print(f'ID:[{i + 1}] | {lista[0][i]}')
+        playsound('sound\HardwareRemove.mp3')
     else:
         print('')
         print('Você ainda não possui senhas cadastradas :(')
+        playsound('sound\HardwareFail.mp3')
 
 def readdata(gerenciador, usuarios, senhaLogin):
     try:
@@ -388,6 +400,15 @@ def autosave():
 
 readdata(gerenciador, usuarios, senhaLogin)
 validation = usuarios.copy()
+print('='*30)
+print('Gerenciador XP'.center(30))
+print('=' * 30)
+print('All right reserved © 2021 - V1.25')
+print('')
+print('Incializando...')
+print('')
+print('')
+playsound('sound\startup.mp3')
 while True:
     menu()
     try:
@@ -404,4 +425,13 @@ while True:
         elif opc == 2:
             criacadastro()
         elif opc == 3:
+            print('')
+            print('')
+            print('=' * 30)
+            print('Gerenciador XP'.center(30))
+            print('=' * 30)
+            print('All right reserved © 2021 - V1.25')
+            print('')
+            print('Delisgando...')
+            playsound('sound\shutdown.mp3')
             break
