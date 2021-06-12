@@ -141,6 +141,8 @@ def menulog(nome):
             elif opc == 4:
                 playsound('sound\HardwareInsert.mp3')
                 exibesenha(nome)
+                print('')
+                print('Aguarde, removendo o pren drive com segurança...')
                 time.sleep(3)
                 playsound('sound\HardwareRemove.mp3')
             elif opc == 5:
@@ -168,7 +170,6 @@ def apagatudo(nome):
         print('')
         print('Você ainda não possui senhas cadastradas :(')
         playsound('sound\HardwareFail.mp3')
-        menulog(nome)
     else:
         exibesenha(nome)
         print('')
@@ -229,7 +230,6 @@ def apagasenha(nome):
         print('')
         print('Você ainda não possui senhas cadastradas :(')
         playsound('sound\HardwareFail.mp3')
-        menulog(nome)
     else:
         exibesenha(nome)
         print('')
